@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verifying Access...</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+      padding-top: 100px;
+      color: #333;
+    }
+    h1 {
+      font-size: 22px;
+    }
+    #status {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #666;
+    }
+    #continueBtn {
+      display: none;
+      margin-top: 30px;
+      padding: 12px 24px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Please wait, we're verifying...</h1>
+  <p id="status">Initializing...</p>
+  <button id="continueBtn" onclick="openLink()">You qualify, click continue to claim your reward!</button>
+
+  <script>
+    const messages = [
+      "Checking eligibility...",
+      "Verifying device...",
+      "Confirming location...",
+      "Matching offers...",
+      "You qualify!"
+    ];
+
+    let i = 0;
+    const status = document.getElementById("status");
+    const button = document.getElementById("continueBtn");
+
+    const interval = setInterval(() => {
+      if (i < messages.length) {
+        status.textContent = messages[i];
+        i++;
+      } else {
+        clearInterval(interval);
+        button.style.display = "inline-block";
+      }
+    }, 1500); // 1.5s between messages
+
+    function openLink() {
+      const a = document.createElement("a");
+      a.href = "https://wy121.com/link?z=9197807"; // Your CPA offer
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      document.body.appendChild(a);
+      a.click();
+    }
+  </script>
+</body>
+</html>
