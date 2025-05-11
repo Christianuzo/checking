@@ -12,57 +12,70 @@
       padding-top: 100px;
       color: #333;
     }
+
     h1 {
       font-size: 22px;
+      margin-bottom: 10px;
     }
-    #status {
-      margin-top: 20px;
-      font-size: 16px;
-      color: #666;
+
+    #checkStatus {
+      font-size: 14px;
+      margin-top: 10px;
     }
+
+    #spinner {
+      margin: 30px auto;
+      border: 4px solid #ccc;
+      border-top: 4px solid #4caf50;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
     #continueBtn {
-  display: none;
-  margin-top: 30px;
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
+      display: none;
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <h1>Please wait, we're verifying...</h1>
-  <p id="status">Initializing...</p>
+  <h1>Hold on, we’re verifying your access...</h1>
+  <div id="checkStatus">Checking 1 of 5...</div>
+  <div id="spinner"></div>
   <button id="continueBtn" onclick="openLink()">Continue to claim reward</button>
+
   <script>
-    const messages = [
-      "Checking eligibility...",
-      "Verifying device...",
-      "Confirming location...",
-      "Matching offers...",
-      "You qualify!"
-    ];
+    const statusEl = document.getElementById('checkStatus');
+    const spinner = document.getElementById('spinner');
+    const btn = document.getElementById('continueBtn');
 
-    let i = 0;
-    const status = document.getElementById("status");
-    const button = document.getElementById("continueBtn");
-
-    const interval = setInterval(() => {
-      if (i < messages.length) {
-        status.textContent = messages[i];
-        i++;
+    let step = 1;
+    const checkInterval = setInterval(() => {
+      step++;
+      if (step <= 5) {
+        statusEl.textContent = `Checking ${step} of 5...`;
       } else {
-        clearInterval(interval);
-        button.style.display = "inline-block";
+        clearInterval(checkInterval);
+        statusEl.textContent = 'Verification complete!';
+        spinner.style.display = 'none';
+        btn.style.display = 'inline-block';
       }
-    }, 1500);
+    }, 1000);
 
     function openLink() {
       const a = document.createElement("a");
-      a.href = "https://wy121.com/link?z=9197807"; // CPA link
+      a.href = "https://wy121.com/link?z=9197807"; // your CPA link
       a.target = "_blank";
       a.rel = "noopener noreferrer";
       document.body.appendChild(a);
