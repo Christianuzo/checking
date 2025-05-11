@@ -9,18 +9,19 @@
       font-family: Arial, sans-serif;
       background-color: #f4f4f4;
       text-align: center;
-      padding-top: 100px;
+      padding-top: 80px;
       color: #333;
     }
 
     h1 {
       font-size: 22px;
-      margin-bottom: 10px;
+      margin-bottom: 30px;
     }
 
     #checkStatus {
-      font-size: 14px;
-      margin-top: 10px;
+      font-size: 15px;
+      margin-top: 20px;
+      min-height: 24px;
     }
 
     #spinner {
@@ -45,13 +46,14 @@
       border: none;
       border-radius: 6px;
       font-size: 14px;
+      margin-top: 30px;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
   <h1>Hold on, we’re verifying your access...</h1>
-  <div id="checkStatus">Checking 1 of 5...</div>
+  <div id="checkStatus">Checking browser compatibility...</div>
   <div id="spinner"></div>
   <button id="continueBtn" onclick="openLink()">Continue to claim reward</button>
 
@@ -60,14 +62,22 @@
     const spinner = document.getElementById('spinner');
     const btn = document.getElementById('continueBtn');
 
-    let step = 1;
-    const checkInterval = setInterval(() => {
+    const checks = [
+      "Checking browser compatibility...",
+      "Validating IP address...",
+      "Verifying session integrity...",
+      "Securing network connection...",
+      "Finalizing validation..."
+    ];
+
+    let step = 0;
+    const interval = setInterval(() => {
       step++;
-      if (step <= 5) {
-        statusEl.textContent = `Checking ${step} of 5...`;
+      if (step < checks.length) {
+        statusEl.textContent = checks[step];
       } else {
-        clearInterval(checkInterval);
-        statusEl.textContent = 'Verification complete!';
+        clearInterval(interval);
+        statusEl.textContent = "Verification complete!";
         spinner.style.display = 'none';
         btn.style.display = 'inline-block';
       }
